@@ -11,12 +11,19 @@ public class EnemyShoot : MonoBehaviour
     public LayerMask layerMask;
     Collider m_Collider;
     RaycastHit m_Hit;
-    public float scaleFactor = 10f;
+    public float scaleFactor = 5f;
     public float timer = 5f;
     public float timeUntilNextShot = 8f;
 
+    GameObject player;
     public GameObject bullet;
     public Transform bulletSpawnPoint;
+    PlayerHealth playerHealth;
+    void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerHealth = player.GetComponent<PlayerHealth>();
+    }
 
     void Start()
     {
@@ -35,7 +42,7 @@ public class EnemyShoot : MonoBehaviour
         //Also fetch the hit data
         m_HitDetect = Physics.BoxCast(m_Collider.bounds.center, transform.localScale * scaleFactor, transform.forward, out m_Hit, transform.rotation, m_MaxDistance, layerMask.value);
         //m_HitDetect = Physics.BoxCast(m_Collider.bounds.center,);
-        if (m_HitDetect && timer > timeUntilNextShot)
+        if (m_HitDetect && timer > timeUntilNextShot && playerHealth.currentHealth > 0)
         {
             //Output the name of the Collider your Box hit
             Debug.Log("Hit : " + m_Hit.collider.name);

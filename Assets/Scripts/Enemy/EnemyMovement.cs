@@ -48,10 +48,8 @@ public class EnemyMovement : MonoBehaviour
     {
         GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
-        print("player collider with enemy");
         if (playerInRange && playerHealth.currentHealth > 0)
         {
-            print("yesssssssss, player collider with enemy");
             playerHealth.TakeDamage(attackDamage);
         }
         Destroy(gameObject);

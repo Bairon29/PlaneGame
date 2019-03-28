@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine.AI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,21 +8,21 @@ public class BulletTracker : MonoBehaviour
 
     public float timeUntilExplode = 10f;
     public int attackDamage = 10;
-    UnityEngine.AI.NavMeshAgent nav;
+    NavMeshAgent nav;
 
     Animator anim;
     GameObject player;
     PlayerHealth playerHealth;
     bool playerInRange;
     float timer;
-
+    NavMeshPath path;
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
-    }
-
+    } 
+    
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -41,8 +42,7 @@ public class BulletTracker : MonoBehaviour
         } else if(timer > timeUntilExplode)
         {
             explode();
-        }
-        
+        } 
     }
 
     void explode()
